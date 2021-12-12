@@ -1,2 +1,2 @@
 # go-trainning
-go进阶训练莹
+go进阶训练营
