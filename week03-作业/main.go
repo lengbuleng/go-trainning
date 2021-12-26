@@ -44,7 +44,7 @@ func main() {
 	//监听linux signal信号
 	channel := make(chan os.Signal, 1)
 	signal.Notify(channel, syscall.SIGINT, syscall.SIGTERM)
-	fmt.Printf("Listening signals...")
+	fmt.Println("Listening signals...")
 
 	egroup.Go(func() error {
 		for {
@@ -54,7 +54,7 @@ func main() {
 			case s := <-channel: //接收到linux信号
 				switch s {
 				case syscall.SIGINT, syscall.SIGTERM:
-					fmt.Printf("Recived signal: %v", s)
+					fmt.Printf("Recived signal: %v\n", s)
 					cancel()
 				default:
 					fmt.Println("Unknow signal: ", s)
@@ -64,7 +64,7 @@ func main() {
 	})
 
 	if err := egroup.Wait(); err != nil {
-		fmt.Printf("errgroup error: %+v", err.Error())
+		fmt.Printf("errgroup error: %+v\n", err.Error())
 		return
 	}
 	fmt.Println("All group done")
